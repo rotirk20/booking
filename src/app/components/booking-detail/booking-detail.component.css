@@ -1,0 +1,11 @@
+.info {
+    padding: 20px;
+}
+p.head-line {
+    padding: 10px 20px;
+    margin: 0px;
+    background: #5cb85c;
+    color: #FFF;
+    font-weight: 600;
+    border-radius:.25rem .25rem 0 0;
+}

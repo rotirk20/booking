@@ -1,0 +1,36 @@
+<div class="container" style="margin-top: 70px;">
+
+    <div class="row">
+
+        <div class="col-sm-8 offset-sm-2">
+
+            <div>
+                <form>
+                    <div class="form-group">
+                        <label for="id">ID</label>
+                        <input [(ngModel)]="bookings.id" type="number" name="id" class="form-control"
+                         placeholder="Enter ID">
+
+                        <label for="name">From city</label>
+                        <input [(ngModel)]="bookings.fromLocation" type="text" name="fromLocation" class="form-control"
+                            id="name">
+
+                        <label for="email">To</label>
+                        <input [(ngModel)]="bookings.toLocation" type="text" name="toLocation" class="form-control"
+                            id="email">
+
+                        <label for="description">Departure</label>
+                        <input type="text" name="departure" [(ngModel)]="bookings.departure" placeholder="From"
+                            class="form-control mb-2" bsDatepicker [minDate]="minDate" [outsideClick]="true"
+                            [bsConfig]="{ isAnimated: true }" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }">
+                        <label for="description">Seats</label>
+                        <input [(ngModel)]="bookings.seats" type="number" name="seats" class="form-control"
+                            id="email">
+
+                    </div>
+                </form>
+                <button class="btn btn-primary shadow" (click)="createRoute()">Create Route</button>
+            </div>
+        </div>
+    </div>
+</div>

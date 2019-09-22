@@ -1,0 +1,14 @@
+.seats {
+    line-height: 1.5;
+    background-color:#5cb85c;
+    color:#FFF;
+}
+.warning {
+    background-color: rgb(236, 144, 25);
+}
+.empty {
+    background-color: rgb(194, 20, 20)
+}
+.list-group-item:hover {
+    background:#e9ecef;
+}

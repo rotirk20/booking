@@ -1,0 +1,12 @@
+<div *ngIf="booking.seats > 0">
+    <p class="head-line">Booking details:</p>
+    <div class="info">
+        Route: {{booking.fromLocation}} - {{booking.toLocation}}<br>
+        Date: {{booking.departure | date:'d.M'}}<br>
+        Seats: {{booking.seats}}<br><br>
+        <app-booking-form></app-booking-form>
+    </div>
+</div>
+<div *ngIf="booking.seats === 0">
+    <h5 class="text-center">No free seats for this route.</h5>
+</div>

@@ -1,0 +1,11 @@
+<div class="container">
+    <ul class="list-group mt-2">
+        <li class="list-group-item" *ngFor="let order of orders">
+            Name: {{order.name}}<br>
+            Phone: {{order.phone}}<br>
+            Seats: {{order.seats}}<br>
+            Location: {{order.location}}<br>
+            Departure:  {{order.departure | date:'d.M'}}
+        </li>
+    </ul>
+</div>

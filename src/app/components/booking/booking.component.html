@@ -1,0 +1,5 @@
+<a routerLink="./{{booking.id}}"  class="list-group-item list-group-item-action mb-1 shadow"
+    [ngClass]="(booking.seats === 0) ? 'disabled' : ''">{{booking.departure | date:'d.M'}} {{booking.fromLocation}} -
+    {{booking.toLocation}} <span class="float-right seats badge badge-secondary rounded-0"
+        [ngClass]="(booking.seats <= 10 && booking.seats > 0) ? 'warning' : 'no-warning' && (booking.seats === 0) ? 'empty' : 'not-empty' ">Seats:
+        {{booking.seats}}</span></a>

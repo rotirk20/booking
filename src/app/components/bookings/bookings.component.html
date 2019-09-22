@@ -1,0 +1,20 @@
+<div class="container d-flex flex-wrap mt-4">
+    <div class="col-md-6">
+        <form>
+            <input type="text" name="fromDate" [(ngModel)]="fromDate" placeholder="From" class="form-control mb-2"
+                bsDatepicker [minDate]="minDate" [outsideClick]="true" [bsConfig]="{ isAnimated: true }"
+                [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" (ngModelChange)="filterBookings()">
+            <input type="text" name="toDate" [(ngModel)]="toDate" placeholder="To" class="form-control" bsDatepicker
+                [minDate]="minDate" [outsideClick]="true" [bsConfig]="{ isAnimated: true }"
+                [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" (ngModelChange)="filterBookings()">
+        </form>
+        <ul class="list-group mt-2">
+            <li class="list" *ngFor="let booking of filterBooking">
+                <app-booking [booking]="booking"></app-booking>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-6 shadow p-0 rounded">
+        <router-outlet></router-outlet>
+    </div>
+</div>

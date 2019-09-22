@@ -1,0 +1,24 @@
+<button type="button" class="btn btn-primary shadow-lg" (click)="openModal(template)">Book now!</button>
+
+<ng-template #template>
+  <div class="modal-header">
+    <h5 class="modal-title pull-left">Book your route</h5>
+    <button type="button" class="close pull-right text-white" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form (ngSubmit)="bookForm()">
+      <input type="text" [(ngModel)]="orders.name" name="name" class="form-control mb-2" placeholder="Full name..." required>
+      <input type="text" [(ngModel)]="orders.phone" name="phone" class="form-control mb-2" placeholder="Phone number..." required>
+      <input type="number" [(ngModel)]="orders.seats" name="bookseats" min="1" class="form-control"
+        placeholder="Number of seats to book..." required>
+      <input type="hidden" [(ngModel)]="orders.location" name="location" class="form-control" disabled>
+        <div *ngFor="let alert of alerts">
+          <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" (onClosed)="onClosed(alert)">{{ alert.msg }}
+          </alert>
+        </div>
+      <button class="btn btn-success mt-2" (click)="createOrder()">Pay</button>
+    </form>
+  </div>
+</ng-template>

@@ -1,0 +1,8 @@
+li.list {
+    list-style-type: none;
+}
+
+li.list.active a {
+    background: #5cb85c!important;
+    color:#FFF;
+}
