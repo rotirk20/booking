@@ -52,6 +52,14 @@ export class BookingFormComponent {
       });
       this.orders.seats = null;
     }
+    else if (this.orders.name == '') {
+      this.alerts.push({
+        type: 'danger',
+        msg: `Fill all fields!!`,
+        timeout: 1300
+      });
+      this.orders.seats = null;
+    }
     else {
       this.freeSeats = this.booking.seats - this.orders.seats;
       this.booking.seats = this.freeSeats;

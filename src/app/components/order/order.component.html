@@ -1,5 +1,5 @@
 <div class="container">
-    <ul class="list-group mt-2">
+    <ul class="list-group mt-2" *ngIf="orders.length > 0">
         <li class="list-group-item" *ngFor="let order of orders">
             Name: {{order.name}}<br>
             Phone: {{order.phone}}<br>
@@ -8,4 +8,5 @@
             Departure:  {{order.departure | date:'d.M'}}
         </li>
     </ul>
+    <h5 class="text-center mt-3" *ngIf="orders.length === 0">No orders.</h5>
 </div>
