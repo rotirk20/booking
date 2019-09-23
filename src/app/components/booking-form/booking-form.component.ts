@@ -15,12 +15,11 @@ export class BookingFormComponent {
   bookings;
   name: string;
   phone;
-  bookSeats = 1;
   freeSeats: number;
   modalRef: BsModalRef;
   alerts: any[] = [{}];
   order: any[] = [];
-  orders: { name, phone, seats, location,departure } = { name: "", phone: "", seats: null, location: "",departure:"" };
+  orders: { name, phone, seats, location, departure } = { name: "", phone: "", seats: null, location: "", departure: "" };
 
   constructor(private modalService: BsModalService, private bookingService: BookingService, private activatedRoute: ActivatedRoute, private ordersService: OrdersService) { }
 
@@ -32,51 +31,46 @@ export class BookingFormComponent {
     this.modalRef = this.modalService.show(template);
   }
 
-  bookForm() {
-    this.activatedRoute.params.subscribe((params) => {
-      this.booking = this.bookingService.getBookingById(+params['id']);
-      if (this.bookSeats > 4) {
-        this.alerts.push({
-          type: 'danger',
-          msg: `You can book maximum of 4 seats.`,
-        });
-        this.bookSeats = null;
-      } else if (this.bookSeats > this.booking.seats) {
-        this.alerts.push({
-          type: 'danger',
-          msg: `That number of seats is not available!`,
-        });
-        this.bookSeats = null;
-      }
-      else {
-        this.freeSeats = this.booking.seats - this.bookSeats;
-        this.booking.seats = this.freeSeats;
-        this.alerts.push({
-          type: 'success',
-          msg: `You successfully booked your route!`,
-          timeout: 1300
-        });
-      }
-    })
-    setTimeout(() => {
-      this.modalRef.hide();
-    }, 1500);
-  }
-
   createOrder() {
     this.activatedRoute.params.subscribe((params) => {
-      this.booking = this.bookingService.getBookingById(+params['id']); 
+      this.booking = this.bookingService.getBookingById(+params['id']);
       this.orders.location = this.booking.fromLocation + '-' + this.booking.toLocation;
       this.orders.departure = this.booking.departure;
     });
+    if (this.orders.seats > 4) {
+      this.alerts.push({
+        type: 'danger',
+        msg: `You can book maximum of 4 seats.`,
+        timeout: 1300
+      });
+      this.orders.seats = null;
+    } else if (this.orders.seats > this.booking.seats) {
+      this.alerts.push({
+        type: 'danger',
+        msg: `That number of seats is not available!`,
+        timeout: 1300
+      });
+      this.orders.seats = null;
+    }
+    else {
+      this.freeSeats = this.booking.seats - this.orders.seats;
+      this.booking.seats = this.freeSeats;
       console.log(this.orders);
       this.ordersService.createOrder(this.orders);
-      this.orders = { name: "", phone: "", seats: null, location: "",departure:"" };
+      this.orders = { name: "", phone: "", seats: null, location: "", departure: "" };
+      setTimeout(() => {
+        this.modalRef.hide();
+      }, 1500);
+      this.alerts.push({
+        type: 'success',
+        msg: `You successfully booked your route!`,
+        timeout: 1300
+      });
     }
-
+  }
 
   onClosed(dismissedAlert: AlertComponent): void {
-      this.alerts = this.alerts.filter(alert => alert !== dismissedAlert);
-    }
+    this.alerts = this.alerts.filter(alert => alert !== dismissedAlert);
+  }
 
 }

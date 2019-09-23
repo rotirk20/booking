@@ -8,7 +8,7 @@
     </button>
   </div>
   <div class="modal-body">
-    <form (ngSubmit)="bookForm()">
+    <form>
       <input type="text" [(ngModel)]="orders.name" name="name" class="form-control mb-2" placeholder="Full name..." required>
       <input type="text" [(ngModel)]="orders.phone" name="phone" class="form-control mb-2" placeholder="Phone number..." required>
       <input type="number" [(ngModel)]="orders.seats" name="bookseats" min="1" class="form-control"

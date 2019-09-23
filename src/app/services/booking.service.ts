@@ -17,7 +17,7 @@ export class BookingService {
       id:2,
       fromLocation: 'Tuzla',
       toLocation: 'Sarajevo',
-      departure: new Date('2019-09-22'),
+      departure: new Date('2019-09-25'),
       seats: 45
     },
     {

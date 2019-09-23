@@ -7,9 +7,8 @@
             <div>
                 <form>
                     <div class="form-group">
-                        <label for="id">ID</label>
-                        <input [(ngModel)]="bookings.id" type="number" name="id" class="form-control"
-                         placeholder="Enter ID">
+                        <input [(ngModel)]="bookings.id" type="hidden" name="id" class="form-control"
+                            placeholder="Enter ID">
 
                         <label for="name">From city</label>
                         <input [(ngModel)]="bookings.fromLocation" type="text" name="fromLocation" class="form-control"
@@ -24,12 +23,16 @@
                             class="form-control mb-2" bsDatepicker [minDate]="minDate" [outsideClick]="true"
                             [bsConfig]="{ isAnimated: true }" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }">
                         <label for="description">Seats</label>
-                        <input [(ngModel)]="bookings.seats" type="number" name="seats" class="form-control"
-                            id="email">
+                        <input [(ngModel)]="bookings.seats" type="number" name="seats" class="form-control" id="email">
 
                     </div>
                 </form>
                 <button class="btn btn-primary shadow" (click)="createRoute()">Create Route</button>
+                <div *ngFor="let alert of alerts">
+                    <alert [type]="alert.type" [dismissOnTimeout]="alert.timeout" (onClosed)="onClosed(alert)">
+                        {{ alert.msg }}
+                    </alert>
+                </div>
             </div>
         </div>
     </div>
