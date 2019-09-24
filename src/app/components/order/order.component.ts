@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { OrdersService } from 'src/app/services/orders.service';
 import { ActivatedRoute } from '@angular/router';
+import { AngularFireDatabase } from '@angular/fire/database';
+
 
 @Component({
   selector: 'app-order',
@@ -11,10 +13,13 @@ export class OrderComponent {
 
   orders;
 
-  constructor(private ordersService: OrdersService, private activatedRoute: ActivatedRoute) { }
+  constructor(private db:AngularFireDatabase,private ordersService: OrdersService, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.orders = this.ordersService.getOrders();
+    this.db.list('/bookings/orders')
+    .valueChanges().subscribe(orders => {
+      this.orders = orders;
+    })
   }
 
 }

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BookingService } from 'src/app/services/booking.service';
+import { AngularFireDatabase } from '@angular/fire/database';
+
 
 @Component({
   selector: 'app-bookings',
@@ -14,7 +16,7 @@ export class BookingsComponent implements OnInit {
   minDate: Date;
   bookings;
 
-  constructor(private bookingService: BookingService) {
+  constructor(private bookingService: BookingService,private db: AngularFireDatabase) {
     this.minDate = new Date();
   }
 
@@ -23,6 +25,10 @@ export class BookingsComponent implements OnInit {
   }
 
   filterBookings() {
-    this.filterBooking = this.bookings.filter(m => m.departure.getTime() >= new Date(this.fromDate).getTime() && m.departure.getTime() <= new Date(this.toDate).getTime())    
+    this.db.list('/bookings/routes')
+    .valueChanges().subscribe(bookings => {
+    this.bookings = bookings;    
+    this.filterBooking = this.bookings.filter(m => new Date(m.departure).getTime() >= new Date(this.fromDate).getTime() && new Date(m.departure).getTime() <= new Date(this.toDate).getTime())    
+  });
   }
 }

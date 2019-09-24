@@ -4,6 +4,8 @@ import { BookingService } from 'src/app/services/booking.service';
 import { ActivatedRoute } from '@angular/router';
 import { AlertComponent } from 'ngx-bootstrap/alert/alert.component';
 import { OrdersService } from 'src/app/services/orders.service';
+import { AngularFireDatabase } from '@angular/fire/database';
+
 
 @Component({
   selector: 'app-booking-form',
@@ -18,10 +20,9 @@ export class BookingFormComponent {
   freeSeats: number;
   modalRef: BsModalRef;
   alerts: any[] = [{}];
-  order: any[] = [];
   orders: { name, phone, seats, location, departure } = { name: "", phone: "", seats: null, location: "", departure: "" };
 
-  constructor(private modalService: BsModalService, private bookingService: BookingService, private activatedRoute: ActivatedRoute, private ordersService: OrdersService) { }
+  constructor(private db:AngularFireDatabase,private modalService: BsModalService, private bookingService: BookingService, private activatedRoute: ActivatedRoute, private ordersService: OrdersService) { }
 
   ngOnInit() {
     this.bookings = this.bookingService.getBookings();
@@ -63,8 +64,14 @@ export class BookingFormComponent {
     else {
       this.freeSeats = this.booking.seats - this.orders.seats;
       this.booking.seats = this.freeSeats;
-      console.log(this.orders);
-      this.ordersService.createOrder(this.orders);
+      const baza = this.db.list('bookings/orders');
+      baza.push({
+        name: this.orders.name,
+        phone: this.orders.phone,
+        location: this.orders.location,
+        departure: this.orders.departure.toString(),
+        seats: this.orders.seats
+      });
       this.orders = { name: "", phone: "", seats: null, location: "", departure: "" };
       setTimeout(() => {
         this.modalRef.hide();

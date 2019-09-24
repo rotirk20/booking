@@ -1,19 +1,23 @@
 import { Injectable } from '@angular/core';
+import { AngularFireDatabase } from '@angular/fire/database';
 
 @Injectable({
   providedIn: 'root'
 })
 export class OrdersService {
 
-  private _orders = []
+  orders:any[];
 
-  constructor() { }
+  constructor(private db:AngularFireDatabase) { }
 
   getOrders() {
-    return this._orders;
+    this.db.list('/bookings/orders')
+    .valueChanges().subscribe(orders => {
+      this.orders = orders;
+    })
   }
 
   createOrder(order: {name, phone, seats, location,departure}){
-    this._orders.push(order);
+    this.orders.push(order);
   }
 }
